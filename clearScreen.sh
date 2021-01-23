@@ -1,3 +1,0 @@
-clear
-
-echo "clear screen"
