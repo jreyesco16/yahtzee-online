@@ -49,49 +49,22 @@ public class Server {
     }
 
     // allow user to check whether port is free
-    public void checkPort(){
+    public void configurePort(){
 
         boolean found = false;
-        Scanner sc = new Scanner(System.in);
-        String portString = "";
+        this.port = 1025;
 
-        // keep buging user until they enter an available port
+        // continue to search for port 
         while(!found){
-            // get an available port from user
-            System.out.print("\nEnter an available port(4 digits): ");
-            portString = sc.nextLine();
-
-            // check port entered is 4 digits
-            if(!checkPortGrammer(portString)){
-                continue;
-            }
-            // convert port to int
-            int port = Integer.parseInt(portString);
 
             try {
                 (new ServerSocket(port)).close();
-                this.port = port;
                 found = true;
             } catch(Exception e) {
                 System.out.print(e);
+                this.port += 1;
             }
         }
-    }
-
-    // return bool if port is valid
-    public boolean checkPortGrammer(String port) {
-        boolean gram = true;
-        // check if string can be converted into digits
-        try{
-            int tmp = Integer.parseInt(port);
-        } catch(Exception e) {
-            gram = false;
-        }
-        // check if the port is 4 digits long
-        if (!(port.length() == 4)){
-            gram = false;
-        }
-        return gram;
     }
 
     // set up the how many players will be in the game
@@ -124,6 +97,7 @@ public class Server {
 
     public void invite(){
         // print out a form that host should send to friends
+        System.out.print("\nINVITATION\n");
         System.out.print("IP: " + this.address + "\n");
         System.out.print("Port: " + this.port + "\n");
     }

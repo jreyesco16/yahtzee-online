@@ -2,7 +2,9 @@ package command;
 
 import java.io.IOException;
 
+import menu.Menu;
+
 // Command pattern
 public interface Command {
-    void execute() throws IOException;
+    Menu execute() throws IOException;
 }
