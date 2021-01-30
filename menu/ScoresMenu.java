@@ -4,28 +4,21 @@ import command.Command;
 import command.GetGameMenuCommand;
 import object.Guest;
 import object.Host;
+import object.Player;
 
 public class ScoresMenu extends Menu {
 
     // attributes
-    private Host host;
-    private Guest guest;
-    private boolean isHost;
+    private Player player;
 
     // constructor
-    public ScoresMenu(Host host, boolean isHost){
-        this.host = host;
-        this.isHost = isHost;
-    }
-    public ScoresMenu(Guest guest, boolean isHost){
-        this.guest = guest;
-        this.isHost = isHost;
+    public ScoresMenu(Player player){
+        this.player = player;
     }
 
 
     @Override
     public void displayMenu(){
-
         
         System.out.print("░██████╗░█████╗░░█████╗░██████╗░███████╗░██████╗\n");
         System.out.print("██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔════╝\n");
@@ -33,31 +26,11 @@ public class ScoresMenu extends Menu {
         System.out.print("░╚═══██╗██║░░██╗██║░░██║██╔══██╗██╔══╝░░░╚═══██╗\n");
         System.out.print("██████╔╝╚█████╔╝╚█████╔╝██║░░██║███████╗██████╔╝\n");
         System.out.print("╚═════╝░░╚════╝░░╚════╝░╚═╝░░╚═╝╚══════╝╚═════╝░\n\n");
-        if(isHost){
 
-            // display the ative player
-            String active = "ACTIVE PLAYER: " + host.getGame().getAcitivePlayer().getName() + "\t";
-            String rolls = "ROLLS: " + host.getGame().getCup().getRolls() + "\t";
-            String round = "ROUND: " + host.getGame().getRound() + "\n";
-            String scores = host.getGame().getScoresString() + "\n\n";
-
-
-            String menu = "\n\n" + active + rolls + round + scores;
-
-            System.out.print(menu);
-
-            host.printToAllPlayers(menu);
-
-        }else{
-
-            // get menu from server
-            System.out.print(this.guest.getConnection().read());
-
-        }
+        System.out.print(createMenu());
 
         // defualt options to all players
         System.out.print("\n\n1. Go back\n\n");
-
     }
 
 
@@ -69,13 +42,47 @@ public class ScoresMenu extends Menu {
         selection = selection == 1 ? 9 : 99;
 
         // details of command should be different depending on host or guest
-        return isHost ? new GetGameMenuCommand(this.host, this.isHost, selection) : new GetGameMenuCommand(this.guest, this.isHost, selection);
+        return new GetGameMenuCommand(player, selection);
     }
 
     @Override
     public int getSelection(){
 
-        return isHost ? host.getHostSelection(host.getGame().getAcitivePlayer().getName()) : guest.getGuestSelection(guest.getConnection().read());
+        Host host = null;
+        Guest guest = null;
+
+        if(player.getHost()){
+            host = (Host)player;
+        }else{
+            guest = (Guest)player;
+        }
+    
+        return player.getHost() ? host.getHostSelection(host.getGame().getAcitivePlayer().getName()) : guest.getGuestSelection(guest.getConnection().read());
+    }
+
+    public String createMenu(){
+        String menu = "";
+        if(player.getHost()){
+            Host host = (Host)player;
+
+            String active = "ACTIVE PLAYER: " + host.getGame().getAcitivePlayer().getName() + "\t";
+            String rolls = "ROLLS: " + host.getGame().getCup().getRolls() + "\t";
+            String round = "ROUND: " + host.getGame().getRound() + "\n";
+            String scores = host.getGame().getScoresString() + "\n\n";
+
+
+            menu = "\n\n" + active + rolls + round + scores;
+
+            if(host.getGame().getOnline()){
+                host.printToAllPlayers(menu);
+            }
+
+        }else{
+            Guest guest = (Guest)player;
+            menu = guest.getConnection().read();
+        }
+
+        return menu;
     }
 
 }

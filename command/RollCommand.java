@@ -1,31 +1,33 @@
 package command;
 
+import menu.GameMenu;
 import menu.Menu;
-import menu.RollMenu;
 import object.Host;
-import object.Guest;
+import object.Player;
 
 public class RollCommand implements Command {
 
     // attributes
-    private Host host;
-    private Guest guest;
-    private boolean isHost;
+    private Player player;
+    private String dicePicks;
 
     // constructor
-    public RollCommand(Host host, boolean isHost){
-        this.host = host;
-        this.isHost = isHost;
-    }
-    public RollCommand(Guest guest, boolean isHost){
-        this.guest = guest;
-        this.isHost = isHost;
+    public RollCommand(Player player, String dicePicks){
+        this.player = player;
+        this.dicePicks = dicePicks;
     }
 
 
     @Override
     public Menu execute(){
-        return isHost ? new RollMenu(this.host, this.isHost) : new RollMenu(this.guest, this.isHost);
+        // if player is the host then make the turn
+
+        if(player.getHost()){
+            Host host = (Host)player;
+            host.getGame().getCup().rerollDice(dicePicks);
+        }
+
+        return new GameMenu(player);
     }
     
 }

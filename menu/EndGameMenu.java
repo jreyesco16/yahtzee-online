@@ -7,25 +7,16 @@ import command.ExitCommand;
 import command.GetGameMenuCommand;
 import object.Guest;
 import object.Host;
+import object.Player;
 
 public class EndGameMenu extends Menu {
 
     // attribues
-    private Host host;
-    private Guest guest;
-    private boolean isHost;
-    private int selection;
+    private Player player;
 
     // constructor
-    public EndGameMenu(Host host, boolean isHost, int selection) {
-        this.host = host;
-        this.isHost = isHost;
-        this.selection = selection;
-    }
-    public EndGameMenu(Guest guest, boolean isHost, int selection){
-        this.guest = guest;
-        this.isHost = isHost;
-        this.selection = selection;
+    public EndGameMenu(Player player) {
+        this.player = player;
     }
 
     @Override
@@ -37,43 +28,12 @@ public class EndGameMenu extends Menu {
         System.out.print("░░████╔═████║░██║██║╚████║██║╚████║██╔══╝░░██╔══██╗\n");
         System.out.print("░░╚██╔╝░╚██╔╝░██║██║░╚███║██║░╚███║███████╗██║░░██║\n");
         System.out.print("░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚══╝╚═╝░░╚══╝╚══════╝╚═╝░░╚═╝\n\n");
-
         System.out.print("  Winner: ");
-        
-        if(this.isHost){
 
-            // get winner
-            String winner = this.host.getGame().getWinner();
-
-            // print to guest
-            this.host.printToAllPlayers(winner);
-
-            System.out.print(winner + "\n");
-
-            // close server
-            try {
-                this.host.getServer().getServerSocket().close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }else{
-            String winner = this.guest.getConnection().read();
-
-            System.out.print(winner + "\n");
-
-            // close the connection to server
-            try {
-				this.guest.getConnection().getSocket().close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-        }
+        System.out.print(createMenu());
 
         System.out.print("\n\n1. Main Menu\n");
         System.out.print("0. Exit\n\n");
-
     }
 
     @Override
@@ -81,7 +41,7 @@ public class EndGameMenu extends Menu {
         int selection = getSelection();
         switch(selection){
             case 1:
-                return this.isHost ? new GetGameMenuCommand(this.host, this.isHost, 0) : new GetGameMenuCommand(this.guest, this.isHost, this.selection);
+                return new GetGameMenuCommand(player, 9);
             case 0:
                 return new ExitCommand();
         }
@@ -92,6 +52,40 @@ public class EndGameMenu extends Menu {
     @Override
     public int getSelection() {
         return getSelectionFromTerminal();
+    }
+
+    public String createMenu(){
+        String menu = "";
+        if(player.getHost()){
+            Host host = (Host)player;
+
+            // get winner
+            menu = host.getGame().getWinner() + "\n";
+
+            // print to guest
+            if(host.getGame().getOnline()){
+                host.printToAllPlayers(menu);
+                // close server
+                try {
+                    host.getServer().getServerSocket().close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }else{
+            Guest guest = (Guest)player;
+            menu = guest.getConnection().read();
+
+             // close the connection to server
+            try {
+				guest.getConnection().getSocket().close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+        }
+
+        return menu;
     }
 
 }

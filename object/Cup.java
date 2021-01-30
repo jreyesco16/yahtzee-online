@@ -151,7 +151,7 @@ public class Cup {
 
     public void rerollDice(String dicePicks){
 
-        if(dicePicks == "no rolls"){
+        if(rolls == 0){
             return;
         }
 
@@ -217,25 +217,25 @@ public class Cup {
         int num = 0;
 
         if(this.diceOne == this.diceTwo && this.diceTwo == this.diceThree){
-            num = this.diceOne + this.diceTwo + this.diceThree;
+            num = this.diceOne + this.diceTwo + this.diceThree + this.diceFour + this.diceFive;
         }else if(this.diceOne == this.diceTwo && this.diceTwo == this.diceFour){
-            num = this.diceOne + this.diceTwo + this.diceFour;
+            num = this.diceOne + this.diceTwo + this.diceThree + this.diceFour + this.diceFive;
         }else if(this.diceOne == this.diceTwo && this.diceTwo == this.diceFive){
-            num = this.diceOne + this.diceTwo + this.diceFive;
+            num = this.diceOne + this.diceTwo + this.diceThree + this.diceFour + this.diceFive;
         }else if(this.diceOne == this.diceThree && this.diceThree == this.diceFour){
-            num = this.diceOne + this.diceThree + this.diceFour;
+            num = this.diceOne + this.diceTwo + this.diceThree + this.diceFour + this.diceFive;
         }else if(this.diceOne == this.diceThree && this.diceThree == this.diceFive){
-            num = this.diceOne + this.diceThree + this.diceFive;
+            num = this.diceOne + this.diceTwo + this.diceThree + this.diceFour + this.diceFive;
         }else if(this.diceOne == this.diceFour && this.diceFour == this.diceFive){
-            num = this.diceOne + this.diceFour + this.diceFive;
+            num = this.diceOne + this.diceTwo + this.diceThree + this.diceFour + this.diceFive;
         }else if(this.diceTwo == this.diceThree && this.diceThree == this.diceFour){
-            num = this.diceTwo + this.diceThree + this.diceFour;
+            num = this.diceOne + this.diceTwo + this.diceThree + this.diceFour + this.diceFive;
         }else if(this.diceTwo == this.diceThree && this.diceThree == this.diceFive){
-            num = this.diceTwo + this.diceThree + this.diceFive;
+            num = this.diceOne + this.diceTwo + this.diceThree + this.diceFour + this.diceFive;
         }else if(this.diceTwo == this.diceFour && this.diceFour == this.diceFive){
-            num = this.diceTwo + this.diceFour + this.diceFive;
+            num = this.diceOne + this.diceTwo + this.diceThree + this.diceFour + this.diceFive;
         }else if(this.diceThree == this.diceFour && this.diceFour == this.diceFive){
-            num = this.diceThree + this.diceFour + this.diceFive;
+            num = this.diceOne + this.diceTwo + this.diceThree + this.diceFour + this.diceFive;
         }
 
         return num;
@@ -245,13 +245,13 @@ public class Cup {
         int num = 0;
 
         if(this.diceOne == this.diceTwo && this.diceTwo == this.diceThree && this.diceThree == this.diceFour){
-            num = this.diceOne + this.diceTwo + this.diceThree + this.diceFour;
+            num = this.diceOne + this.diceTwo + this.diceThree + this.diceFour + this.diceFive;
         }
         if(this.diceOne == this.diceTwo && this.diceTwo == this.diceThree && this.diceThree == this.diceFive){
-            num = this.diceOne + this.diceTwo + this.diceThree + this.diceFive;
+            num = this.diceOne + this.diceTwo + this.diceThree + this.diceFour + this.diceFive;
         }
         if(this.diceTwo == this.diceThree && this.diceThree == this.diceFour && this.diceFour == this.diceFive){
-            num = this.diceTwo + this.diceThree + this.diceFour + this.diceFive;
+            num = this.diceOne + this.diceTwo + this.diceThree + this.diceFour + this.diceFive;
         }
         return num;
     }

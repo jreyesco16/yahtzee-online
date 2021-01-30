@@ -61,7 +61,6 @@ public class Server {
                 (new ServerSocket(port)).close();
                 found = true;
             } catch(Exception e) {
-                System.out.print(e);
                 this.port += 1;
             }
         }
@@ -99,7 +98,7 @@ public class Server {
         // print out a form that host should send to friends
         System.out.print("\nINVITATION\n");
         System.out.print("IP: " + this.address + "\n");
-        System.out.print("Port: " + this.port + "\n");
+        System.out.print("Port: " + this.port + "\n\n");
     }
     
     // getters and setters

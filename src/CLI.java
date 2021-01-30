@@ -5,6 +5,7 @@ import menu.LobbyMenu;
 import java.io.IOException;
 
 public class CLI {
+
     private Menu menu;
     private static CLI instance;
 

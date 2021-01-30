@@ -1,10 +1,7 @@
 package menu;
 
 import command.Command;
-import command.ExitCommand;
-import command.OnlineCommand;
-import command.LocalCommand;
-import command.NoCommand;
+import command.CreateGameCommand;
 
 public class LobbyMenu extends Menu {
 
@@ -36,18 +33,7 @@ public class LobbyMenu extends Menu {
 
         int selection = getSelection();
 
-        switch(selection){
-            case 1:
-                return new OnlineCommand(selection);
-            case 2:
-                return new OnlineCommand(selection);
-            case 3:
-                return new LocalCommand();
-            case 0:
-                return new ExitCommand();
-        }
-        // no command found
-        return new NoCommand();
+        return new CreateGameCommand(selection);
     }
 
     //get user selection from terminal/terminal

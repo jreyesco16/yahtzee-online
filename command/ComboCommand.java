@@ -5,127 +5,137 @@ import menu.EndGameMenu;
 import menu.Menu;
 import object.Guest;
 import object.Host;
+import object.Player;
 
 public class ComboCommand implements Command {
 
     // attributes
-    private Host host;
-    private Guest guest;
-    private boolean isHost;
-    int selection;
+    private Player player;
+    private int selection;
     
 
     // constructor
-    public ComboCommand(Host host, boolean isHost, int selection) {
-        this.host = host;
-        this.isHost = isHost;
-        this.selection = selection;
-    }
-    public ComboCommand(Guest guest, boolean isHost, int selection){
-        this.guest = guest;
-        this.isHost = isHost;
+    public ComboCommand(Player player, int selection) {
+        this.player = player;
         this.selection = selection;
     }
 
     @Override
     public Menu execute() {
 
-        if(this.isHost){
+        if(player.getHost()){
+
+            Host host = (Host)player;
             // take the turn
-            selectCombo(this.selection);
+            selectCombo(selection);
 
             // check if game is over
-            if(this.host.getGame().getRound() == 14){
-                this.host.printToAllPlayers("gameover");
+            if(host.getGame().getRound() == 14){
+                if(host.getGame().getOnline()){
+                    host.printToAllPlayers("gameover");
+                }
                 // inform the guests that the game is over
-                return new EndGameMenu(this.host, this.isHost, 1);
+                return new EndGameMenu(player);
             }
 
-            this.host.printToAllPlayers("continue");
+            if(host.getGame().getOnline()){
+                host.printToAllPlayers("continue");
+            }
+            
         }else{
+
+            Guest guest = (Guest)player;
             // check if the game is over
             if("gameover".equals(guest.getConnection().read())){
-                return new EndGameMenu(this.guest, this.isHost, 1);
+                return new EndGameMenu(player);
             }
         }
 
-        return isHost ? new GameMenu(this.host, this.isHost) : new GameMenu(this.guest, this.isHost);
+        return new GameMenu(player);
     }
 
     // change card based on player selection
     public void selectCombo(int selection){
         int num = 0;
+
+
+        if(selection <= 0 || 13 < selection){
+            return;
+        }
+
+        Host host = (Host)player;
+
         switch(this.selection){
             case 1:
-                num = this.host.getGame().getCup().calculateAces();
-                this.host.getGame().getAcitivePlayer().getCard().setAces(num);
-                this.host.getGame().getAcitivePlayer().getCard().setAcesBool(true);
+                num = host.getGame().getCup().calculateAces();
+                host.getGame().getAcitivePlayer().getCard().setAces(num);
+                host.getGame().getAcitivePlayer().getCard().setAcesBool(true);
                 break;
             case 2:
-                num = this.host.getGame().getCup().calculateTwos();
-                this.host.getGame().getAcitivePlayer().getCard().setTwos(num);
-                this.host.getGame().getAcitivePlayer().getCard().setTwosBool(true);
+                num = host.getGame().getCup().calculateTwos();
+                host.getGame().getAcitivePlayer().getCard().setTwos(num);
+                host.getGame().getAcitivePlayer().getCard().setTwosBool(true);
                 break;
             case 3:
-                num = this.host.getGame().getCup().calculateThrees();
-                this.host.getGame().getAcitivePlayer().getCard().setThrees(num);
-                this.host.getGame().getAcitivePlayer().getCard().setThreesBool(true);
+                num = host.getGame().getCup().calculateThrees();
+                host.getGame().getAcitivePlayer().getCard().setThrees(num);
+                host.getGame().getAcitivePlayer().getCard().setThreesBool(true);
                 break;
             case 4:
-            num = this.host.getGame().getCup().calculateFours();
-                this.host.getGame().getAcitivePlayer().getCard().setFours(num);
-                this.host.getGame().getAcitivePlayer().getCard().setFoursBool(true);
+            num = host.getGame().getCup().calculateFours();
+                host.getGame().getAcitivePlayer().getCard().setFours(num);
+                host.getGame().getAcitivePlayer().getCard().setFoursBool(true);
                 break;
             case 5:
-                num = this.host.getGame().getCup().calculateFives();
-                this.host.getGame().getAcitivePlayer().getCard().setFives(num);
-                this.host.getGame().getAcitivePlayer().getCard().setFivesBool(true);
+                num = host.getGame().getCup().calculateFives();
+                host.getGame().getAcitivePlayer().getCard().setFives(num);
+                host.getGame().getAcitivePlayer().getCard().setFivesBool(true);
                 break;
             case 6:
-            num = this.host.getGame().getCup().calculateSixes();
-                this.host.getGame().getAcitivePlayer().getCard().setSixes(num);
-                this.host.getGame().getAcitivePlayer().getCard().setSixesBool(true);
+            num = host.getGame().getCup().calculateSixes();
+                host.getGame().getAcitivePlayer().getCard().setSixes(num);
+                host.getGame().getAcitivePlayer().getCard().setSixesBool(true);
                 break;
             case 7:
-                num = this.host.getGame().getCup().calculateThreeKind();
-                this.host.getGame().getAcitivePlayer().getCard().setThreeKind(num);
-                this.host.getGame().getAcitivePlayer().getCard().setThreeKindBool(true);
+                num = host.getGame().getCup().calculateThreeKind();
+                host.getGame().getAcitivePlayer().getCard().setThreeKind(num);
+                host.getGame().getAcitivePlayer().getCard().setThreeKindBool(true);
                 break;
             case 8:
-            num = this.host.getGame().getCup().calculateFourKind();
-                this.host.getGame().getAcitivePlayer().getCard().setFourKind(num);
-                this.host.getGame().getAcitivePlayer().getCard().setFourKindBool(true);
+                num = host.getGame().getCup().calculateFourKind();
+                host.getGame().getAcitivePlayer().getCard().setFourKind(num);
+                host.getGame().getAcitivePlayer().getCard().setFourKindBool(true);
                 break;
             case 9:
-                num = this.host.getGame().getCup().calculateFullHouse();
-                this.host.getGame().getAcitivePlayer().getCard().setFullHouse(num);
-                this.host.getGame().getAcitivePlayer().getCard().setFullHouseBool(true);
+                num = host.getGame().getCup().calculateFullHouse();
+                host.getGame().getAcitivePlayer().getCard().setFullHouse(num);
+                host.getGame().getAcitivePlayer().getCard().setFullHouseBool(true);
                 break;
             case 10:
-                num = this.host.getGame().getCup().calculateSmallStraight();
-                this.host.getGame().getAcitivePlayer().getCard().setSmallStraight(num);
-                this.host.getGame().getAcitivePlayer().getCard().setSmallStraightBool(true);
+                num = host.getGame().getCup().calculateSmallStraight();
+                host.getGame().getAcitivePlayer().getCard().setSmallStraight(num);
+                host.getGame().getAcitivePlayer().getCard().setSmallStraightBool(true);
                 break;
             case 11:
-                num = this.host.getGame().getCup().calculateLargeStraight();
-                this.host.getGame().getAcitivePlayer().getCard().setLargeStraight(num);
-                this.host.getGame().getAcitivePlayer().getCard().setLargeStraightBool(true);
+                num = host.getGame().getCup().calculateLargeStraight();
+                host.getGame().getAcitivePlayer().getCard().setLargeStraight(num);
+                host.getGame().getAcitivePlayer().getCard().setLargeStraightBool(true);
                 break;
             case 12:
-                num = this.host.getGame().getCup().calculateYahtzee();
-                this.host.getGame().getAcitivePlayer().getCard().setYahtzee(num);
-                this.host.getGame().getAcitivePlayer().getCard().setYahtzeeBool(true);
+                num = host.getGame().getCup().calculateYahtzee();
+                host.getGame().getAcitivePlayer().getCard().setYahtzee(num);
+                host.getGame().getAcitivePlayer().getCard().setYahtzeeBool(true);
                 break;
             case 13:
-                num = this.host.getGame().getCup().calculateChance();
-                this.host.getGame().getAcitivePlayer().getCard().setChance(num);
-                this.host.getGame().getAcitivePlayer().getCard().setChanceBool(true);
+                num = host.getGame().getCup().calculateChance();
+                host.getGame().getAcitivePlayer().getCard().setChance(num);
+                host.getGame().getAcitivePlayer().getCard().setChanceBool(true);
                 break;
         }
         // reset cup
-        this.host.getGame().getCup().resetCup();
+        host.getGame().getCup().resetCup();
         // change player
-        this.host.getGame().switchActivePlayer();
+        host.getGame().switchActivePlayer();
     }
     
 }

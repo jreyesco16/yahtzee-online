@@ -1,7 +1,6 @@
 package command;
 
-import object.Host;
-import object.Guest;
+import object.Player;
 import menu.RollMenu;
 import menu.ComboMenu;
 import menu.Menu;
@@ -12,20 +11,12 @@ import menu.LobbyMenu;
 public class GetGameMenuCommand implements Command {
 
     // attributes
-    Host host;
-    Guest guest;
-    boolean isHost;
-    int selection;
+    private Player player;
+    private int selection;
 
     // constructor
-    public GetGameMenuCommand(Host host, boolean isHost, int selection){
-        this.host = host;
-        this.isHost = isHost;
-        this.selection = selection;
-    }
-    public GetGameMenuCommand(Guest guest, boolean isHost, int selection){
-        this.guest = guest;
-        this.isHost = isHost;
+    public GetGameMenuCommand(Player player, int selection){
+        this.player = player;
         this.selection = selection;
     }
 
@@ -34,19 +25,18 @@ public class GetGameMenuCommand implements Command {
         // details of menu should be different if player is host or guest
         switch(this.selection){
             case 1:
-                return isHost ? new RollMenu(this.host, this.isHost) : new RollMenu(this.guest,this. isHost);
+                return new RollMenu(player);
             case 2:
-                return isHost ? new ComboMenu(this.host, isHost) : new ComboMenu(this.guest, isHost);
+                return new ComboMenu(player);
             case 3:
-                return isHost ? new ScoresMenu(this.host, isHost) : new ScoresMenu(this.guest, isHost);
+                return new ScoresMenu(player);
             case 9:
-                return isHost ? new GameMenu(this.host, this.isHost) : new GameMenu(this.guest, this.isHost);
-            case 0:
                 return new LobbyMenu();
-                
+            case 0:
+                return  new GameMenu(player);
         }
 
-        return null;
+        return new GameMenu(player);
 
     }
     

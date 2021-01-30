@@ -9,11 +9,13 @@ public class Game {
     private Cup cup;
     private int activeIndex;
     private int round;
+    private boolean online;
 
     // constructors
-    public Game(ArrayList<Player> players, Cup cup){
+    public Game(ArrayList<Player> players, Cup cup, boolean online){
         this.players = players;
         this.cup = cup;
+        this.online = online;
         this.activeIndex = 0;
         this.round = 1;
     }
@@ -158,6 +160,12 @@ public class Game {
     }
     public void setRound(int round){
         this.round = round;
+    }
+    public boolean getOnline(){
+        return online;
+    }
+    public void setOnline(boolean online){
+        this.online = online;
     }
 
 }

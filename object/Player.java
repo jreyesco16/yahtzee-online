@@ -9,14 +9,15 @@ abstract public class Player {
     private String name;
     private Card card;
     private boolean active;
+    private boolean host;
 
     //constructor
-    public Player(String name, Card card){
+    public Player(String name, Card card, boolean host){
         this.name = name;
         this.card = card;
+        this.host = host;
     }
 
-    // get this players score card
     public String getCardString(){
         return
         "-------------UPPER SELECTION-------------\n" +
@@ -44,7 +45,6 @@ abstract public class Player {
         "GRAND TOTAL --->: " + this.card.getGrandTotal() + "\n";
     }
 
-    // get selection via terminal
     public int getSelectionFromTerminal(){
 
         System.out.print("Enter Selection: ");
@@ -62,7 +62,6 @@ abstract public class Player {
         return selection;
     }
     
-    // get dice from string
     public String getDiceFromTerminal(){
 
         boolean flag = false;
@@ -120,5 +119,11 @@ abstract public class Player {
     }
     public void setActive(boolean active){
         this.active = active;
+    }
+    public boolean getHost(){
+        return this.host;
+    }
+    public void setHost(boolean host){
+        this.host = host;
     }
 }

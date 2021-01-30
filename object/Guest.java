@@ -8,7 +8,7 @@ public class Guest extends Player {
 
     // constructor
     public Guest(String name, Card card, Connection connection){
-        super(name, card);
+        super(name, card, false);
         this.connection = connection;
 
     }
@@ -42,9 +42,9 @@ public class Guest extends Player {
     }
 
     // get dice selection from guest or wait on another player
-    public int getGuestDiceSelection(String activePlayerName){
+    public String getGuestDiceSelection(String activePlayerName){
 
-        int selection = 0;
+        String dicePicks = null;
 
         if(this.getName().equals(activePlayerName)){
 
@@ -56,17 +56,15 @@ public class Guest extends Player {
                 this.connection.write("no rolls");
 
             }else{
-                String dicePicks = getDiceFromTerminal();
+                dicePicks = getDiceFromTerminal();
                 this.connection.write(dicePicks);
             }
-            selection = 9;
         }else{
             
             System.out.print("Waiting on " + activePlayerName + " to finish.\n");
-            String numString = this.connection.read();
-            selection = Integer.parseInt(numString);
+            dicePicks = this.connection.read();
         }
-        return selection;
+        return dicePicks;
     }
 
     // getters + setters
