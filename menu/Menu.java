@@ -5,12 +5,6 @@ import java.util.Scanner;
 
 // abstract Menu class
 abstract public class Menu {
-    
-    private Menu lastMenu;
-    
-    public void setLastMenu(Menu oldMenu) {
-        lastMenu = oldMenu;
-    }
 
     public int getSelectionFromTerminal(){
 

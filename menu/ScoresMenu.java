@@ -19,18 +19,21 @@ public class ScoresMenu extends Menu {
 
     @Override
     public void displayMenu(){
-        
-        System.out.print("░██████╗░█████╗░░█████╗░██████╗░███████╗░██████╗\n");
-        System.out.print("██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔════╝\n");
-        System.out.print("╚█████╗░██║░░╚═╝██║░░██║██████╔╝█████╗░░╚█████╗░\n");
-        System.out.print("░╚═══██╗██║░░██╗██║░░██║██╔══██╗██╔══╝░░░╚═══██╗\n");
-        System.out.print("██████╔╝╚█████╔╝╚█████╔╝██║░░██║███████╗██████╔╝\n");
-        System.out.print("╚═════╝░░╚════╝░░╚════╝░╚═╝░░╚═╝╚══════╝╚═════╝░\n\n");
+        // PLAYER SCORES ??? (maybe will choose something different)
+        System.out.println("\n\n\n");
+        System.out.print("\t░░██████╗░██╗░░░░░░█████╗░██╗░░░██╗███████╗██████╗░░░░██████╗░█████╗░░█████╗░██████╗░███████╗░██████╗░░\n");
+        System.out.print("\t░░██╔══██╗██║░░░░░██╔══██╗╚██╗░██╔╝██╔════╝██╔══██╗░░██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔════╝░░\n");
+        System.out.print("\t░░██████╔╝██║░░░░░███████║░╚████╔╝░█████╗░░██████╔╝░░╚█████╗░██║░░╚═╝██║░░██║██████╔╝█████╗░░╚█████╗░░░\n");
+        System.out.print("\t░░██╔═══╝░██║░░░░░██╔══██║░░╚██╔╝░░██╔══╝░░██╔══██╗░░░╚═══██╗██║░░██╗██║░░██║██╔══██╗██╔══╝░░░╚═══██╗░░\n");
+        System.out.print("\t░░██║░░░░░███████╗██║░░██║░░░██║░░░███████╗██║░░██║░░██████╔╝╚█████╔╝╚█████╔╝██║░░██║███████╗██████╔╝░░\n");
+        System.out.print("\t░░╚═╝░░░░░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░╚══════╝╚═╝░░╚═╝░░╚═════╝░░╚════╝░░╚════╝░╚═╝░░╚═╝╚══════╝╚═════╝░░░\n\n");
+
+
 
         System.out.print(createMenu());
 
         // defualt options to all players
-        System.out.print("\n\n1. Go back\n\n");
+        System.out.print("\n\n\t0. Go back\n\n");
     }
 
 
@@ -39,10 +42,8 @@ public class ScoresMenu extends Menu {
 
         int selection = getSelection();
 
-        selection = selection == 1 ? 9 : 99;
-
         // details of command should be different depending on host or guest
-        return new GetGameMenuCommand(player, selection);
+        return new GetGameMenuCommand(player, 0);
     }
 
     @Override
@@ -51,21 +52,26 @@ public class ScoresMenu extends Menu {
         Host host = null;
         Guest guest = null;
 
+        String activePlayer = "";
+
         if(player.getHost()){
             host = (Host)player;
+            activePlayer = host.getGame().getActivePlayer().getName();
+            host.printToAllPlayers(activePlayer);
         }else{
             guest = (Guest)player;
+            activePlayer = guest.getConnection().read();
         }
     
-        return player.getHost() ? host.getHostSelection(host.getGame().getAcitivePlayer().getName()) : guest.getGuestSelection(guest.getConnection().read());
+        return player.getHost() ? host.getHostSelection(activePlayer) : guest.getGuestSelection(activePlayer);
     }
 
     public String createMenu(){
         String menu = "";
         if(player.getHost()){
             Host host = (Host)player;
-
-            String active = "ACTIVE PLAYER: " + host.getGame().getAcitivePlayer().getName() + "\t";
+            
+            String active = "\t\tACTIVE PLAYER: " + host.getGame().getActivePlayer().getName() + "\t";
             String rolls = "ROLLS: " + host.getGame().getCup().getRolls() + "\t";
             String round = "ROUND: " + host.getGame().getRound() + "\n";
             String scores = host.getGame().getScoresString() + "\n\n";

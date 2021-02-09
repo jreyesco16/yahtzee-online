@@ -20,7 +20,6 @@ public class Guest extends Player {
         return Integer.parseInt(numString);
     }
 
-
     // get selection from guest
     public int getGuestSelection(String activePlayerName){
 
@@ -34,7 +33,7 @@ public class Guest extends Player {
 
         }else{
             // not active / waiting on other players selection
-            System.out.print("Waiting on " + activePlayerName + " to finish.\n");
+            System.out.print("\t\t\t\tWaiting on " + activePlayerName + " to finish.\n");
             String numString = this.connection.read();
             selection = Integer.parseInt(numString);
         }
@@ -46,6 +45,7 @@ public class Guest extends Player {
 
         String dicePicks = null;
 
+        // GUEST TURN
         if(this.getName().equals(activePlayerName)){
 
             // check if this player actually has any valid rolls
@@ -59,11 +59,15 @@ public class Guest extends Player {
                 dicePicks = getDiceFromTerminal();
                 this.connection.write(dicePicks);
             }
+
+
+        // NOT GUEST TURN
         }else{
             
-            System.out.print("Waiting on " + activePlayerName + " to finish.\n");
+            System.out.print("\t\t\t\tWaiting on " + activePlayerName + " to finish.\n");
             dicePicks = this.connection.read();
         }
+
         return dicePicks;
     }
 

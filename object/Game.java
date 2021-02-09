@@ -21,7 +21,7 @@ public class Game {
     }
 
     // get active player
-    public Player getAcitivePlayer(){
+    public Player getActivePlayer(){
         return this.players.get(this.activeIndex);
     }
 
@@ -38,14 +38,15 @@ public class Game {
 
     // create score card for players
     public String getScoreBoard(){
-        String scoreBoard = "----------SCORE BOARD----------\n";
-        int count = 1;
 
-        // need to make a list that sorts the scoreboard before storing in a list
+        ArrayList<Player> sorted = sortedList();
+
+        // ArrayList<Player> sorted = players;
+
+        String scoreBoard = "\t\t\t\t----------SCORE BOARD----------\n";
 
         for(int i = 0; i < players.size(); i++){
-            scoreBoard = scoreBoard + count + ". " + players.get(i).getName() + ": " + players.get(i).getCard().getGrandTotal() + "\t\n" + "-------------------------------\n";
-            count++;
+            scoreBoard = scoreBoard + "\t\t\t\t" + (i+1) + ". " + sorted.get(i).getName() + ": " + sorted.get(i).getCard().getGrandTotal() + "\t\n" + "\t\t\t\t-------------------------------\n";
         }
 
         return scoreBoard + "\n\n";
@@ -53,29 +54,29 @@ public class Game {
 
     // create string to get all player scores
     public String getScoresString(){
-        String scores = "--------UPPER SELECTION-------- \t"; for(Player p: players){ scores += String.format("%-8s\t", p.getName()+":"); };
-        scores += "\nAces:                               \t"; for(Player p: players){ scores += String.format("%-8d\t", p.getCard().getAces()); };
-        scores += "\nTwos:                               \t"; for(Player p: players){ scores += String.format("%-8d\t", p.getCard().getTwos()); };
-        scores += "\nThrees:                             \t"; for(Player p: players){ scores += String.format("%-8d\t", p.getCard().getThrees()); };
-        scores += "\nFours:                              \t"; for(Player p: players){ scores += String.format("%-8d\t", p.getCard().getFours()); };
-        scores += "\nFives:                              \t"; for(Player p: players){ scores += String.format("%-8d\t", p.getCard().getFives()); };
-        scores += "\nSixes:                              \t"; for(Player p: players){ scores += String.format("%-8d\t", p.getCard().getSixes()); };
-        scores += "\nTOTAL SCORE --->:                   \t"; for(Player p: players){ scores += String.format("%-8d\t", p.getCard().getTotalScore()); };
-        scores += "\nBONUS:                              \t"; for(Player p: players){ scores += String.format("%-8d\t", p.getCard().getBonus()); };
-        scores += "\nTOTAL       --->:                   \t"; for(Player p: players){ scores += String.format("%-8d\t", p.getCard().getTotal()); };
-		scores += "\n--------LOWER SELECTION--------";
-        scores += "\n3 of a kind:                        \t"; for(Player p: players){ scores += String.format("%-8d\t", p.getCard().getThreeKind()); };
-        scores += "\n4 of a kind:                        \t"; for(Player p: players){ scores += String.format("%-8d\t", p.getCard().getFourKind()); };
-        scores += "\nFull House:                         \t"; for(Player p: players){ scores += String.format("%-8d\t", p.getCard().getFullHouse()); };
-        scores += "\nSm Straight:                        \t"; for(Player p: players){ scores += String.format("%-8d\t", p.getCard().getSmallStraight()); };
-        scores += "\nLg Straight:                        \t"; for(Player p: players){ scores += String.format("%-8d\t", p.getCard().getLargeStraight()); };
-        scores += "\nYAHTZEE:                            \t"; for(Player p: players){ scores += String.format("%-8d\t", p.getCard().getYahtzee()); };
-        scores += "\nChance:                             \t"; for(Player p: players){ scores += String.format("%-8d\t", p.getCard().getChance()); };
-        scores += "\n    YAHTZEE :                       \t"; for(Player p: players){ scores += String.format("%-8d\t", p.getCard().getYahzeeBonus()); };
-        scores += "\n     BONUS";
-        scores += "\n\nTotal Lower --->:                   \t"; for(Player p: players){ scores += String.format("%-8d\t", p.getCard().getTotalLowerSelection()); };
-        scores += "\nTotal upper --->:                   \t"; for(Player p: players){ scores += String.format("%-8d\t", p.getCard().getTotalUpperSelection()); };
-        scores += "\nGRAND TOTAL --->:                   \t"; for(Player p: players){ scores += String.format("%-8d\t", p.getCard().getGrandTotal()); };
+        String scores = "\t--------UPPER SELECTION-------- \t"; for(Player p: players){ scores += String.format("%-8s  ", p.getName()+":"); };
+        scores += "\n\tAces:                               \t"; for(Player p: players){ scores += String.format("%-8d  ", p.getCard().getAces()); };
+        scores += "\n\tTwos:                               \t"; for(Player p: players){ scores += String.format("%-8d  ", p.getCard().getTwos()); };
+        scores += "\n\tThrees:                             \t"; for(Player p: players){ scores += String.format("%-8d  ", p.getCard().getThrees()); };
+        scores += "\n\tFours:                              \t"; for(Player p: players){ scores += String.format("%-8d  ", p.getCard().getFours()); };
+        scores += "\n\tFives:                              \t"; for(Player p: players){ scores += String.format("%-8d  ", p.getCard().getFives()); };
+        scores += "\n\tSixes:                              \t"; for(Player p: players){ scores += String.format("%-8d  ", p.getCard().getSixes()); };
+        scores += "\n\tTOTAL SCORE --->:                   \t"; for(Player p: players){ scores += String.format("%-8d  ", p.getCard().getTotalScore()); };
+        scores += "\n\tBONUS:                              \t"; for(Player p: players){ scores += String.format("%-8d  ", p.getCard().getBonus()); };
+        scores += "\n\tTOTAL       --->:                   \t"; for(Player p: players){ scores += String.format("%-8d  ", p.getCard().getTotal()); };
+		scores += "\n\t--------LOWER SELECTION--------";
+        scores += "\n\t3 of a kind:                        \t"; for(Player p: players){ scores += String.format("%-8d  ", p.getCard().getThreeKind()); };
+        scores += "\n\t4 of a kind:                        \t"; for(Player p: players){ scores += String.format("%-8d  ", p.getCard().getFourKind()); };
+        scores += "\n\tFull House:                         \t"; for(Player p: players){ scores += String.format("%-8d  ", p.getCard().getFullHouse()); };
+        scores += "\n\tSm Straight:                        \t"; for(Player p: players){ scores += String.format("%-8d  ", p.getCard().getSmallStraight()); };
+        scores += "\n\tLg Straight:                        \t"; for(Player p: players){ scores += String.format("%-8d  ", p.getCard().getLargeStraight()); };
+        scores += "\n\tYAHTZEE:                            \t"; for(Player p: players){ scores += String.format("%-8d  ", p.getCard().getYahtzee()); };
+        scores += "\n\tChance:                             \t"; for(Player p: players){ scores += String.format("%-8d  ", p.getCard().getChance()); };
+        scores += "\n\t    YAHTZEE :                       \t"; for(Player p: players){ scores += String.format("%-8d  ", p.getCard().getYahzeeBonus()); };
+        scores += "\n\t     BONUS";
+        scores += "\n\n\tTotal Upper --->:                   \t"; for(Player p: players){ scores += String.format("%-8d  ", p.getCard().getTotalUpperSelection()); };
+        scores += "\n\tTotal Lower --->:                   \t"; for(Player p: players){ scores += String.format("%-8d  ", p.getCard().getTotalLowerSelection()); };
+        scores += "\n\tGRAND TOTAL --->:                   \t"; for(Player p: players){ scores += String.format("%-8d  ", p.getCard().getGrandTotal()); };
 
         return scores;
     }
@@ -94,51 +95,110 @@ public class Game {
         return winner;
     }
 
+    public ArrayList<Player> sortedList(){
+
+        ArrayList<Player> sorted = new ArrayList<Player>();
+
+        for(Player p: players){
+            sorted.add(p);
+        }
+
+        int index = 0;
+        Player p = null;
+
+        int max = 0;
+        for(int i = 0; i < sorted.size(); i++){
+            max = 0;
+            index = i;
+            for(int j = i; j < sorted.size(); j++){
+                if(sorted.get(j).getCard().getGrandTotal() >= max){
+                    max = sorted.get(j).getCard().getGrandTotal();
+                    index = j;
+                }
+            }
+            
+            p = sorted.get(i);
+
+            sorted.set(i, sorted.get(index));
+            sorted.set(index, p);
+        }
+
+        return sorted;
+    }
+
     // create string to get all player combos
     public String getCombosString(){
-        String combos = "";
+        String combos = "\n\n";
 
-        if(!getAcitivePlayer().getCard().getAcesBool()){
-            combos += "\n1. Aces:    " + getCup().calculateAces();
-        }
-        if(!getAcitivePlayer().getCard().getTwosBool()){
-            combos += "\n2. Twos:    " + getCup().calculateTwos();
-        }
-        if(!getAcitivePlayer().getCard().getThreesBool()){
-            combos += "\n3. Threes:    " + getCup().calculateThrees();
-        }
-        if(!getAcitivePlayer().getCard().getFoursBool()){
-            combos += "\n4. Fours:    " + getCup().calculateFours();
-        }
-        if(!getAcitivePlayer().getCard().getFivesBool()){
-            combos += "\n5. Fives:    " + getCup().calculateFives();
-        }
-        if(!getAcitivePlayer().getCard().getSixesBool()){
-            combos += "\n6. Sixes:    " + getCup().calculateSixes();
-        }
-        if(!getAcitivePlayer().getCard().getThreeKindBool()){
-            combos += "\n7. 3 of a kind:    " + getCup().calculateThreeKind();
-        }
-        if(!getAcitivePlayer().getCard().getFourKindBool()){
-            combos += "\n8. 4 of a kind:    " + getCup().calculateFourKind();
-        }
-        if(!getAcitivePlayer().getCard().getFullHouseBool()){
-            combos += "\n9. Full House:    " + getCup().calculateFullHouse();
-        }
-        if(!getAcitivePlayer().getCard().getSmallStraightBool()){
-            combos += "\n10. Sm Straight:    " + getCup().calculateSmallStraight();
-        }
-        if(!getAcitivePlayer().getCard().getLargeStraightBool()){
-            combos += "\n11. Lg Straight:    " + getCup().calculateLargeStraight();
-        }
-        if(!getAcitivePlayer().getCard().getYahtzeeBool()){
-            combos += "\n12. YAHTZEE:    " + getCup().calculateYahtzee();
-        }
-        if(!getAcitivePlayer().getCard().getChanceBool()){
-            combos += "\n13. Chance:    " + getCup().calculateChance();
+        // combos ACES & TWOS
+
+        if(!getActivePlayer().getCard().getAcesBool() && !getActivePlayer().getCard().getTwosBool()){
+            combos += "\t1. Aces:    " + getCup().calculateAces() + "\t\t\t\t2. Twos:    " + getCup().calculateTwos();
+        }else if(!getActivePlayer().getCard().getAcesBool()){
+            combos += "\t1. Aces:    " + getCup().calculateTwos();
+        }else if(!getActivePlayer().getCard().getTwosBool()){
+            combos += "\t\t\t\t\t\t2. Twos:    " + getCup().calculateTwos();
         }
 
-        combos += "\n\n0. Go Back\n";
+        combos += "\n\n";
+
+        if(!getActivePlayer().getCard().getThreesBool() && !getActivePlayer().getCard().getFoursBool()){
+            combos += "\t3. Threes:    " + getCup().calculateThrees() + "\t\t\t\t4. Fours:    " + getCup().calculateFours();
+        }else if(!getActivePlayer().getCard().getThreesBool()){
+            combos += "\t3. Threes:    " + getCup().calculateThrees();
+        }else if(!getActivePlayer().getCard().getFoursBool()){
+            combos += "\t\t\t\t\t\t4. Fours:    " + getCup().calculateFours();
+        }
+
+        combos += "\n\n";
+
+        if(!getActivePlayer().getCard().getFivesBool() && !getActivePlayer().getCard().getSixesBool()){
+            combos += "\t5. Fives:    " + getCup().calculateFives() + "\t\t\t\t6. Sixes:    " + getCup().calculateSixes();
+        }else if(!getActivePlayer().getCard().getFivesBool()){
+            combos += "\t5. Fives:    " + getCup().calculateFives();
+        }else if(!getActivePlayer().getCard().getSixesBool()){
+            combos += "\t\t\t\t\t\t6. Sixes:    " + getCup().calculateSixes();
+        }
+
+        combos += "\n\n";
+
+        if(!getActivePlayer().getCard().getThreeKindBool() && !getActivePlayer().getCard().getFourKindBool()){
+            combos += "\t7. 3 of a kind:    " + getCup().calculateThreeKind() + "\t\t\t8. 4 of a kind:    " + getCup().calculateFourKind();
+        }else if(!getActivePlayer().getCard().getThreeKindBool()){
+            combos += "\t7. 3 of a kind:    " + getCup().calculateThreeKind();
+        }else if(!getActivePlayer().getCard().getFourKindBool()){
+            combos += "\t\t\t\t\t\t8. 4 of a kind:    " + getCup().calculateFourKind();
+        }
+
+        combos += "\n\n";
+
+        if(!getActivePlayer().getCard().getFullHouseBool() && !getActivePlayer().getCard().getSmallStraightBool()){
+            combos += "\t9. Full House:    " + getCup().calculateFullHouse() + "\t\t\t10. Sm Straight:    " + getCup().calculateSmallStraight();
+        }else if(!getActivePlayer().getCard().getFullHouseBool()){
+            combos += "\t9. Full House:    " + getCup().calculateFullHouse();
+        }else if(!getActivePlayer().getCard().getSmallStraightBool()){
+            combos += "\t\t\t\t\t\t10. Sm Straight:    " + getCup().calculateSmallStraight();
+        }
+
+        combos += "\n\n";
+
+        if(!getActivePlayer().getCard().getLargeStraightBool() && !getActivePlayer().getCard().getYahtzeeBool()){
+            combos += "\t11. Lg Straight:    " + getCup().calculateLargeStraight() + "\t\t\t12. YAHTZEE:    " + getCup().calculateYahtzee();
+        }else if(!getActivePlayer().getCard().getLargeStraightBool()){
+            combos += "\t11. Lg Straight:    " + getCup().calculateLargeStraight();
+        }else if(!getActivePlayer().getCard().getYahtzeeBool()){
+            combos += "\t\t\t\t\t\t12. YAHTZEE:    " + getCup().calculateYahtzee();
+        }
+
+        combos += "\n\n";
+
+        if(!getActivePlayer().getCard().getChanceBool()){
+            combos += "\t13. Chance:    " + getCup().calculateChance();
+        }
+
+        combos += "\n\n";
+
+        combos += "\n\n\t0. Go Back\n";
         return combos;
     }
 

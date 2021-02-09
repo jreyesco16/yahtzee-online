@@ -47,7 +47,7 @@ abstract public class Player {
 
     public int getSelectionFromTerminal(){
 
-        System.out.print("Enter Selection: ");
+        System.out.print("  Enter Selection: ");
         Scanner sc = new Scanner(System.in);
         int selection = 10000000;
         
@@ -69,32 +69,54 @@ abstract public class Player {
         Scanner sc = new Scanner(System.in);
         String dicePicks = "";
 
+        System.out.print("\tEnter dice numbers with spaces between them you wish to re-roll or 0 to go back.\n\n");
+
         // bug user until they finally enter the corret format of string
         while(flag==false){
-            System.out.print("Enter dice numbers with spaces between them you wish to re-roll\n");
-            System.out.print("Enter Selection: ");
+            System.out.print("  Enter Selection: ");
             dicePicks = sc.nextLine();
+
+            // if user wants to go back to previous menus
+            if(dicePicks.equals("0")){
+                return dicePicks;
+            }
+
             try{
 
                 String [] tokens = dicePicks.split(" ");
 
-                // test to make sure that all inputs by user are actual number
-                for(int i = 0; i < tokens.length; i++){
-                    int num = Integer.parseInt(tokens[i]);
-
-                    if(num<1 && 5<num){
-                        System.out.print("Only dice number between 1-5 are valid.");
-                        continue;
-
-                    }
+                if(tokens.length < 1 || 5 < tokens.length){
+                    System.out.print("\n\tYou have entered to many dice numbers.Try again.\n\n");
+                    continue;
                 }
 
-                if(1 <= tokens.length && tokens.length <= 5){
+                // test to make sure that all inputs by user are actual number
+                boolean largerFlag = false;
+                boolean repeatedFlag = false;
+                ArrayList<Integer> diceNumbers = new ArrayList<Integer>();
+
+                for(int i = 0; i < tokens.length; i++){
+                    int num = Integer.parseInt(tokens[i]);
+                    if(num<1 || 5<num){
+                        largerFlag = true;
+                    }else if(diceNumbers.contains(num)){ // find if the player has entered a repeated dice number
+                        repeatedFlag = true;
+
+                    }
+
+                    diceNumbers.add(num);
+                }
+
+                if(largerFlag){
+                    System.out.print("\n\tOnly dice numbers between 1-5 are valid. Try again.\n\n");
+                }else if(repeatedFlag){
+                    System.out.print("\n\tYou entered a the same dice number more than twice. Try again.\n\n");
+                }else{
                     flag = true;
                 }
 
             }catch(Exception e){
-                System.out.print("The format is incorrent, make sure to put spaces between dice numbers.\n");
+                System.out.print("\n\tThe format is incorrent, make sure to put spaces between dice numbers. Try again.\n\n");
             }
         }
 

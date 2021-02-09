@@ -18,20 +18,26 @@ public class ComboMenu extends Menu {
 
     @Override
     public void displayMenu(){
-        
-        System.out.print("░█████╗░░█████╗░███╗░░░███╗██████╗░░█████╗░░██████╗\n");
-        System.out.print("██╔══██╗██╔══██╗████╗░████║██╔══██╗██╔══██╗██╔════╝\n");
-        System.out.print("██║░░╚═╝██║░░██║██╔████╔██║██████╦╝██║░░██║╚█████╗░\n");
-        System.out.print("██║░░██╗██║░░██║██║╚██╔╝██║██╔══██╗██║░░██║░╚═══██╗\n");
-        System.out.print("╚█████╔╝╚█████╔╝██║░╚═╝░██║██████╦╝╚█████╔╝██████╔╝\n");
-        System.out.print("░╚════╝░░╚════╝░╚═╝░░░░░╚═╝╚═════╝░░╚════╝░╚═════╝░\n");
+        // AVAILABLE COMBOS
+        System.out.println("\n\n\n");
+        System.out.print("\t░░░█████╗░██╗░░░██╗░█████╗░██╗██╗░░░░░░█████╗░██████╗░██╗░░░░░███████╗░░\n");
+        System.out.print("\t░░██╔══██╗██║░░░██║██╔══██╗██║██║░░░░░██╔══██╗██╔══██╗██║░░░░░██╔════╝░░\n");
+        System.out.print("\t░░███████║╚██╗░██╔╝███████║██║██║░░░░░███████║██████╦╝██║░░░░░█████╗░░░░\n");
+        System.out.print("\t░░██╔══██║░╚████╔╝░██╔══██║██║██║░░░░░██╔══██║██╔══██╗██║░░░░░██╔══╝░░░░\n");
+        System.out.print("\t░░██║░░██║░░╚██╔╝░░██║░░██║██║███████╗██║░░██║██████╦╝███████╗███████╗░░\n");
+        System.out.print("\t░░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝╚═╝╚══════╝╚═╝░░╚═╝╚═════╝░╚══════╝╚══════╝░░\n");
+        System.out.print("\t\t░░░█████╗░░█████╗░███╗░░░███╗██████╗░░█████╗░░██████╗░░\n");
+        System.out.print("\t\t░░██╔══██╗██╔══██╗████╗░████║██╔══██╗██╔══██╗██╔════╝░░\n");
+        System.out.print("\t\t░░██║░░╚═╝██║░░██║██╔████╔██║██████╦╝██║░░██║╚█████╗░░░\n");
+        System.out.print("\t\t░░██║░░██╗██║░░██║██║╚██╔╝██║██╔══██╗██║░░██║░╚═══██╗░░\n");
+        System.out.print("\t\t░░╚█████╔╝╚█████╔╝██║░╚═╝░██║██████╦╝╚█████╔╝██████╔╝░░\n");
+        System.out.print("\t\t░░░╚════╝░░╚════╝░╚═╝░░░░░╚═╝╚═════╝░░╚════╝░╚═════╝░░░\n");
 
         System.out.print(createMenu());
     }
 
     @Override
     public Command getCommand(){
-
         int selection = getSelection();
 
         return new ComboCommand(player, selection);
@@ -42,16 +48,21 @@ public class ComboMenu extends Menu {
 
         int selection = 0;
 
-        if(player.getHost()){
-            Host host = (Host)player;
-            selection = host.getHostSelection(host.getGame().getAcitivePlayer().getName());
-        }else{
-            Guest guest = (Guest)player;
-            selection = guest.getGuestSelection(guest.getConnection().read());
+        Host host = null;
+        Guest guest = null;
 
+        String activePlayer = "";
+
+        if(player.getHost()){
+            host = (Host)player;
+            activePlayer = host.getGame().getActivePlayer().getName();
+            host.printToAllPlayers(activePlayer);
+        }else{
+            guest = (Guest)player;
+            activePlayer = guest.getConnection().read();
         }
 
-        return selection;
+        return player.getHost() ? host.getHostSelection(activePlayer) : guest.getGuestSelection(activePlayer);
     }
 
     public String createMenu(){
@@ -59,7 +70,7 @@ public class ComboMenu extends Menu {
         if(player.getHost()){
             Host host = (Host)player;
 
-            String active = "\n\nACTIVE PLAYER: " + host.getGame().getAcitivePlayer().getName() + "\t";
+            String active = "\n\n\t\tACTIVE PLAYER: " + host.getGame().getActivePlayer().getName() + "\t";
             String rolls = "ROLLS: " + host.getGame().getCup().getRolls() + "\t";
             String round = "ROUND: " + host.getGame().getRound() + "\n";
 

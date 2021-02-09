@@ -37,7 +37,7 @@ public class Cup {
 
     public String getDiceBuilderString(){
 
-        String diceString = " _____      _____      _____      _____      _____ \n";
+        String diceString = "\t\t _____      _____      _____      _____      _____ \n";
 
         // first initial roll
         if(rolls==3){
@@ -50,10 +50,10 @@ public class Cup {
         }
 
         for(int i = 1; i < 4; i++){
-            diceString = diceString + getDiceString(this.diceOne, i) + "    " + getDiceString(this.diceTwo, i) + "    " + getDiceString(this.diceThree, i) + "    " + getDiceString(this.diceFour, i) + "    " + getDiceString(this.diceFive, i) + "\n";
+            diceString = diceString + "\t\t" + getDiceString(this.diceOne, i) + "    " + getDiceString(this.diceTwo, i) + "    " + getDiceString(this.diceThree, i) + "    " + getDiceString(this.diceFour, i) + "    " + getDiceString(this.diceFive, i) + "\n";
         }
 
-        diceString = diceString + " '''''      '''''      '''''      '''''      ''''' \n";
+        diceString = diceString + "\t\t '''''      '''''      '''''      '''''      ''''' \n";
 
         return diceString;
 
@@ -151,7 +151,7 @@ public class Cup {
 
     public void rerollDice(String dicePicks){
 
-        if(rolls == 0){
+        if(rolls == 0 || dicePicks.equals("0")){
             return;
         }
 
@@ -286,145 +286,66 @@ public class Cup {
     }
     
     public int calculateSmallStraight(){
-        int count = 0;
-        int sum = 0;
+
+        boolean smallStraight = false;
 
         if(this.diceOne == 1 || this.diceTwo == 1 || this.diceThree == 1 || this.diceFour == 1 || this.diceFive == 1){
-            count++;
-            if(this.diceOne == 1){
-                sum += this.diceOne;
+            if(this.diceOne == 2 || this.diceTwo == 2 || this.diceThree == 2 || this.diceFour == 2 || this.diceFive == 2){
+                if(this.diceOne == 3 || this.diceTwo == 3 || this.diceThree == 3 || this.diceFour == 3 || this.diceFive == 3){
+                    if(this.diceOne == 4 || this.diceTwo == 4 || this.diceThree == 4 || this.diceFour == 4 || this.diceFive == 4){
+                        smallStraight = true;
+                    }
+                }
             }
-            if(this.diceTwo == 1){
-                sum += this.diceTwo;
+        }else if(this.diceOne == 2 || this.diceTwo == 2 || this.diceThree == 2 || this.diceFour == 2 || this.diceFive == 2){
+            if(this.diceOne == 3 || this.diceTwo == 3 || this.diceThree == 3 || this.diceFour == 3 || this.diceFive == 3){
+                if(this.diceOne == 4 || this.diceTwo == 4 || this.diceThree == 4 || this.diceFour == 4 || this.diceFive == 4){
+                    if(this.diceOne == 5 || this.diceTwo == 5 || this.diceThree == 5 || this.diceFour == 5 || this.diceFive == 5){
+                        smallStraight = true;
+                    }
+                }
+
             }
-            if(this.diceThree == 1){
-                sum += this.diceThree;
-            }
-            if(this.diceFour == 1){
-                sum += this.diceFour;
-            }
-            if(this.diceFive == 1){
-                sum += this.diceFive;
-            }
-        }
-        if(this.diceOne == 2 || this.diceTwo == 2 || this.diceThree == 2 || this.diceFour == 2 || this.diceFive == 2){
-            count++;
-            if(this.diceOne == 2){
-                sum += this.diceOne;
-            }
-            if(this.diceTwo == 2){
-                sum += this.diceTwo;
-            }
-            if(this.diceThree == 2){
-                sum += this.diceThree;
-            }
-            if(this.diceFour == 2){
-                sum += this.diceFour;
-            }
-            if(this.diceFive == 2){
-                sum += this.diceFive;
+
+        }else if(this.diceOne == 3 || this.diceTwo == 3 || this.diceThree == 3 || this.diceFour == 3 || this.diceFive == 3){
+            if(this.diceOne == 4 || this.diceTwo == 4 || this.diceThree == 4 || this.diceFour == 4 || this.diceFive == 4){
+                if(this.diceOne == 5 || this.diceTwo == 5 || this.diceThree == 5 || this.diceFour == 5 || this.diceFive == 5){
+                    if(this.diceOne == 6 || this.diceTwo == 6 || this.diceThree == 6 || this.diceFour == 6 || this.diceFive == 6){
+                        smallStraight = true;
+                    }
+                }
             }
         }
-        if(this.diceOne == 3 || this.diceTwo == 3 || this.diceThree == 3 || this.diceFour == 3 || this.diceFive == 3){
-            count++;
-            if(this.diceOne == 2){
-                sum += this.diceOne;
-            }
-            if(this.diceTwo == 2){
-                sum += this.diceTwo;
-            }
-            if(this.diceThree == 2){
-                sum += this.diceThree;
-            }
-            if(this.diceFour == 2){
-                sum += this.diceFour;
-            }
-            if(this.diceFive == 2){
-                sum += this.diceFive;
-            }
-        }
-        if(this.diceOne == 4 || this.diceTwo == 4 || this.diceThree == 4 || this.diceFour == 4 || this.diceFive == 4){
-            count++;
-            if(this.diceOne == 4){
-                sum += this.diceOne;
-            }
-            if(this.diceTwo == 4){
-                sum += this.diceTwo;
-            }
-            if(this.diceThree == 4){
-                sum += this.diceThree;
-            }
-            if(this.diceFour == 4){
-                sum += this.diceFour;
-            }
-            if(this.diceFive == 4){
-                sum += this.diceFive;
-            }
-        }
-        if(this.diceOne == 5 || this.diceTwo == 5 || this.diceThree == 5 || this.diceFour == 5 || this.diceFive == 5){
-            count++;
-            if(this.diceOne == 5){
-                sum += this.diceOne;
-            }
-            if(this.diceTwo == 5){
-                sum += this.diceTwo;
-            }
-            if(this.diceThree == 5){
-                sum += this.diceThree;
-            }
-            if(this.diceFour == 5){
-                sum += this.diceFour;
-            }
-            if(this.diceFive == 5){
-                sum += this.diceFive;
-            }
-        }
-        if(this.diceOne == 6 || this.diceTwo == 6 || this.diceThree == 6 || this.diceFour == 6 || this.diceFive == 6){
-            count++;
-            if(this.diceOne == 6){
-                sum += this.diceOne;
-            }
-            if(this.diceTwo == 6){
-                sum += this.diceTwo;
-            }
-            if(this.diceThree == 6){
-                sum += this.diceThree;
-            }
-            if(this.diceFour == 6){
-                sum += this.diceFour;
-            }
-            if(this.diceFive == 6){
-                sum += this.diceFive;
-            }
-        }
-        return ((count == 4) && (sum == 11 || sum == 14 || sum == 18)) ? 30 : 0;
+
+        return (smallStraight == true) ? 30 : 0;
     }
     
     public int calculateLargeStraight(){
-        int count = 0;
+        boolean largeStraight = false;
 
         if(this.diceOne == 1 || this.diceTwo == 1 || this.diceThree == 1 || this.diceFour == 1 || this.diceFive == 1){
-            count++;
-        }
-        if(this.diceOne == 2 || this.diceTwo == 2 || this.diceThree == 2 || this.diceFour == 2 || this.diceFive == 2){
-            count++;
-        }
-        if(this.diceOne == 3 || this.diceTwo == 3 || this.diceThree == 3 || this.diceFour == 3 || this.diceFive == 3){
-            count++;
-        }
-        if(this.diceOne == 4 || this.diceTwo == 4 || this.diceThree == 4 || this.diceFour == 4 || this.diceFive == 4){
-            count++;
-        }
-        if(this.diceOne == 5 || this.diceTwo == 5 || this.diceThree == 5 || this.diceFour == 5 || this.diceFive == 5){
-            count++;
-        }
-        if(this.diceOne == 6 || this.diceTwo == 6 || this.diceThree == 6 || this.diceFour == 6 || this.diceFive == 6){
-            count++;
+            if(this.diceOne == 2 || this.diceTwo == 2 || this.diceThree == 2 || this.diceFour == 2 || this.diceFive == 2){
+                if(this.diceOne == 3 || this.diceTwo == 3 || this.diceThree == 3 || this.diceFour == 3 || this.diceFive == 3){
+                    if(this.diceOne == 4 || this.diceTwo == 4 || this.diceThree == 4 || this.diceFour == 4 || this.diceFive == 4){
+                        if(this.diceOne == 5 || this.diceTwo == 5 || this.diceThree == 5 || this.diceFour == 5 || this.diceFive == 5){
+                            largeStraight = true;
+                        }
+                    }
+                }
+            }
+        }else if(this.diceOne == 2 || this.diceTwo == 2 || this.diceThree == 2 || this.diceFour == 2 || this.diceFive == 2){
+            if(this.diceOne == 3 || this.diceTwo == 3 || this.diceThree == 3 || this.diceFour == 3 || this.diceFive == 3){
+                if(this.diceOne == 4 || this.diceTwo == 4 || this.diceThree == 4 || this.diceFour == 4 || this.diceFive == 4){
+                    if(this.diceOne == 5 || this.diceTwo == 5 || this.diceThree == 5 || this.diceFour == 5 || this.diceFive == 5){
+                        if(this.diceOne == 6 || this.diceTwo == 6 || this.diceThree == 6 || this.diceFour == 6 || this.diceFive == 6){
+                            largeStraight = true;
+                        }
+                    }
+                }
+            }
         }
 
-        int sum = this.diceOne + this.diceTwo + this.diceThree + this.diceFour + this.diceFive;
-
-        return ((count == 5) && (sum == 15 || sum == 20)) ? 35 : 0;
+        return (largeStraight == true) ? 35 : 0;
     }
 
     public int calculateYahtzee(){

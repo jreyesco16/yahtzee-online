@@ -33,9 +33,8 @@ public class GetGameMenuCommand implements Command {
             case 9:
                 return new LobbyMenu();
             case 0:
-                return  new GameMenu(player);
+                return new GameMenu(player);
         }
-
         return new GameMenu(player);
 
     }

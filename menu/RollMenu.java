@@ -10,7 +10,6 @@ public class RollMenu extends Menu {
 
     // attributes
     private Player player;
-    private boolean online;
     private String dicePicks;
     
 
@@ -22,13 +21,14 @@ public class RollMenu extends Menu {
 
     @Override
     public void displayMenu(){
-        
-        System.out.print("░░░░░░██████╗░░█████╗░██╗░░░░░██╗░░░░░░░\n");
-        System.out.print("░░░░░░██╔══██╗██╔══██╗██║░░░░░██║░░░░░░░\n");
-        System.out.print("░░░░░░██████╔╝██║░░██║██║░░░░░██║░░░░░░░\n");
-        System.out.print("░░░░░░██╔══██╗██║░░██║██║░░░░░██║░░░░░░░\n");
-        System.out.print("░░░░░░██║░░██║╚█████╔╝███████╗███████╗░░\n");
-        System.out.print("░░░░░░╚═╝░░╚═╝░╚════╝░╚══════╝╚══════╝░░\n\n");
+        // ROLL DICE ??? (maybe will choose something different)
+        System.out.println("\n\n\n");
+        System.out.print("\t░░░██████╗░░█████╗░██╗░░░░░██╗░░░░░░░██████╗░██╗░█████╗░███████╗░░\n");
+        System.out.print("\t░░░██╔══██╗██╔══██╗██║░░░░░██║░░░░░░░██╔══██╗██║██╔══██╗██╔════╝░░\n");
+        System.out.print("\t░░░██████╔╝██║░░██║██║░░░░░██║░░░░░░░██║░░██║██║██║░░╚═╝█████╗░░░░\n");
+        System.out.print("\t░░░██╔══██╗██║░░██║██║░░░░░██║░░░░░░░██║░░██║██║██║░░██╗██╔══╝░░░░\n");
+        System.out.print("\t░░░██║░░██║╚█████╔╝███████╗███████╗░░██████╔╝██║╚█████╔╝███████╗░░\n");
+        System.out.print("\t░░░╚═╝░░╚═╝░╚════╝░╚══════╝╚══════╝░░╚═════╝░╚═╝░╚════╝░╚══════╝░░\n\n");
 
         // varies depending on player type, and game type
         System.out.print(createMenu());
@@ -48,13 +48,18 @@ public class RollMenu extends Menu {
         Host host = null;
         Guest guest = null;
 
+        String activePlayer = "";
+
         if(player.getHost()){
             host = (Host)player;
+            activePlayer = host.getGame().getActivePlayer().getName();
+            host.printToAllPlayers(activePlayer);
         }else{
             guest = (Guest)player;
+            activePlayer = guest.getConnection().read();
         }
 
-        dicePicks = player.getHost() ? host.getHostDiceSelection(host.getGame().getAcitivePlayer().getName()) : guest.getGuestDiceSelection(guest.getConnection().read());
+        dicePicks = player.getHost() ? host.getHostDiceSelection(activePlayer) : guest.getGuestDiceSelection(activePlayer);
 
         return 0;
     }
@@ -64,10 +69,10 @@ public class RollMenu extends Menu {
         if(player.getHost()){
             Host host = (Host)player;
 
-            String active = "\n\nACTIVE PLAYER: " + host.getGame().getAcitivePlayer().getName() + "\t";
+            String active = "\n\n\t\tACTIVE PLAYER: " + host.getGame().getActivePlayer().getName() + "\t";
             String rolls = "ROLLS: " +  host.getGame().getCup().getRolls() + "\t";
             String round = "ROUND: " + host.getGame().getRound() + "\n";
-            String diceString = host.getGame().getCup().getDiceBuilderString() + "   1          2          3          4          5\n\n";
+            String diceString = host.getGame().getCup().getDiceBuilderString() + "\t\t   1          2          3          4          5\n\n";
 
             menu = active + rolls + round + diceString;
 

@@ -26,10 +26,27 @@ public class CreateGameCommand implements Command {
     @Override
     public Menu execute() throws IOException {
 
+        // check if the user wants to exit game before asking for name
+        if(selection == 0){
+            exitGame();
+        }
+
         // get user's name
         Scanner sc = new Scanner(System.in);
-        System.out.print("\nEnter your name: ");
-        this.name = sc.nextLine();
+
+        boolean flag = false;
+
+        while(flag == false){
+
+            System.out.print("\nEnter your name: ");
+            name = sc.nextLine();
+
+            if(name.length()>7){
+                System.out.print("\nName can't be larger than 7 letters long. Try again.\n");
+            }else{
+                flag = true;
+            }
+        }
 
         switch(selection){
             case 1:
@@ -38,8 +55,6 @@ public class CreateGameCommand implements Command {
                 return OnlineGuestGame();
             case 3:
                 return LocalGame();
-            case 0:
-                return exitGame();
         }
         return new LobbyMenu();
     }
@@ -82,11 +97,9 @@ public class CreateGameCommand implements Command {
     }
 
     public Menu exitGame(){
-        System.out.print("\n\nThank you for playing\n");
+        System.out.print("\n\n\t\t\t\t  Thank you for playing.\n\n");
         System.exit(0);
 
         return null;
-    }
-
-    
+    }    
 }

@@ -69,8 +69,21 @@ public class Host extends Player {
         Scanner sc = new Scanner(System.in);
 
         for(int i = 1; i < numOfPlayers ; i++){
-            System.out.print("Enter the name of this player: ");
-            String name = sc.nextLine();
+            // get user's name
+            boolean flag = false;
+            String name = "";
+
+            while(flag == false){
+
+                System.out.print("\nEnter the name of player "+(i+1)+": ");
+                name = sc.nextLine();
+
+                if(name.length()>7){
+                    System.out.print("\nName can't be larger than 7 letters long. Try again.\n");
+                }else{
+                    flag = true;
+                }
+            }
 
             Guest guest = new Guest(name, new Card(), null);
 
@@ -88,13 +101,13 @@ public class Host extends Player {
 
         // keep bugging user until they enter 
         while(!got){
-            System.out.print("Enter the number of players(up to 4): ");
+            System.out.print("\nEnter the number of players (up to 4 including host): ");
             String players = sc.nextLine();
 
             try{
                 playersNum = Integer.parseInt(players);
 
-                if(1 < playersNum & playersNum < 5){
+                if(0 < playersNum & playersNum < 5){
                     got = true;
                 }else{
                     System.out.print("The number ented must be greater than 1 and smaller or equal to 4, try again.\n");
@@ -128,6 +141,18 @@ public class Host extends Player {
             
         }
     }
+
+    public void printToAllNonActivePlayers(String activePlayer, String dicePicks){
+        for(int i = 1; i < this.game.getPlayers().size(); i++){
+            Guest guest = (Guest)this.game.getPlayers().get(i);
+            if(activePlayer != guest.getName()){
+                guest.getConnection().write(dicePicks);
+            }else{
+                continue;
+            }
+            
+        }
+    }
     
     // get selection from host
     public int getHostSelection(String activePlayerName){
@@ -135,7 +160,6 @@ public class Host extends Player {
         int selection = 999;
 
         if(game.getOnline()){
-            printToAllPlayers(activePlayerName);
     
             // check if this player is active
             if(this.getName().equals(activePlayerName)){
@@ -145,7 +169,9 @@ public class Host extends Player {
 
             }else{
     
-                Guest guest = (Guest)game.getAcitivePlayer();
+                Guest guest = (Guest)game.getActivePlayer();
+
+                System.out.print("\t\t\t\tWaiting on " + activePlayerName + " to finish.\n");
     
                 String numString = guest.getConnection().read();
                 selection = Integer.parseInt(numString);
@@ -165,18 +191,31 @@ public class Host extends Player {
         
         String dicePicks = null;
 
-        if(game.getOnline()){
-            printToAllPlayers(activePlayerName);
 
+        // ONLINE
+        if(game.getOnline()){
+
+
+            // HOST TURN
             if(this.getName().equals(activePlayerName)){
+
                    dicePicks = (game.getCup().getRolls() > 0) ? getDiceFromTerminal() : null;
-           }else{
-               Guest guest = (Guest)game.getAcitivePlayer();
+
+            // NOT HOST TURN
+            }else{
+               Guest guest = (Guest)game.getActivePlayer();
    
                guest.getConnection().write(String.valueOf(game.getCup().getRolls()));
+
+               System.out.print("\t\t\t\tWaiting on " + activePlayerName + " to finish.\n");
        
                dicePicks = guest.getConnection().read();
-           }
+            }
+
+            printToAllNonActivePlayers(activePlayerName, dicePicks);
+
+
+        // LOCAL
         }else{
 
             dicePicks = (game.getCup().getRolls() > 0) ? getDiceFromTerminal() : null;

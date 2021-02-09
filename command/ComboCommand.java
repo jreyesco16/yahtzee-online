@@ -65,77 +65,147 @@ public class ComboCommand implements Command {
 
         Host host = (Host)player;
 
+        boolean success = false;
+
         switch(this.selection){
             case 1:
-                num = host.getGame().getCup().calculateAces();
-                host.getGame().getAcitivePlayer().getCard().setAces(num);
-                host.getGame().getAcitivePlayer().getCard().setAcesBool(true);
+                if(host.getGame().getActivePlayer().getCard().getAcesBool() == false){
+                    num = host.getGame().getCup().calculateAces();
+                    host.getGame().getActivePlayer().getCard().setAces(num);
+                    host.getGame().getActivePlayer().getCard().setAcesBool(true);
+                    success = true;
+                }else{
+                    // do nothing
+                }
                 break;
             case 2:
-                num = host.getGame().getCup().calculateTwos();
-                host.getGame().getAcitivePlayer().getCard().setTwos(num);
-                host.getGame().getAcitivePlayer().getCard().setTwosBool(true);
+                if(host.getGame().getActivePlayer().getCard().getTwosBool() == false){
+                    num = host.getGame().getCup().calculateTwos();
+                    host.getGame().getActivePlayer().getCard().setTwos(num);
+                    host.getGame().getActivePlayer().getCard().setTwosBool(true);
+                    success = true;
+                }else{
+                    //do nothing
+                }
                 break;
             case 3:
-                num = host.getGame().getCup().calculateThrees();
-                host.getGame().getAcitivePlayer().getCard().setThrees(num);
-                host.getGame().getAcitivePlayer().getCard().setThreesBool(true);
+                if(host.getGame().getActivePlayer().getCard().getThreesBool() == false){
+                    num = host.getGame().getCup().calculateThrees();
+                    host.getGame().getActivePlayer().getCard().setThrees(num);
+                    host.getGame().getActivePlayer().getCard().setThreesBool(true);
+                    success = true;
+                }else{
+                    // do nothing
+                }
                 break;
             case 4:
-            num = host.getGame().getCup().calculateFours();
-                host.getGame().getAcitivePlayer().getCard().setFours(num);
-                host.getGame().getAcitivePlayer().getCard().setFoursBool(true);
+                if(host.getGame().getActivePlayer().getCard().getFoursBool() == false){
+                    num = host.getGame().getCup().calculateFours();
+                    host.getGame().getActivePlayer().getCard().setFours(num);
+                    host.getGame().getActivePlayer().getCard().setFoursBool(true);
+                    success = true;
+                }else{
+                    // do nothing
+                }
                 break;
             case 5:
-                num = host.getGame().getCup().calculateFives();
-                host.getGame().getAcitivePlayer().getCard().setFives(num);
-                host.getGame().getAcitivePlayer().getCard().setFivesBool(true);
+                if(host.getGame().getActivePlayer().getCard().getFivesBool() == false){
+                    num = host.getGame().getCup().calculateFives();
+                    host.getGame().getActivePlayer().getCard().setFives(num);
+                    host.getGame().getActivePlayer().getCard().setFivesBool(true);
+                    success = true;
+                }else{
+                    // do nothing
+                }
                 break;
             case 6:
-            num = host.getGame().getCup().calculateSixes();
-                host.getGame().getAcitivePlayer().getCard().setSixes(num);
-                host.getGame().getAcitivePlayer().getCard().setSixesBool(true);
+                if(host.getGame().getActivePlayer().getCard().getSixesBool() == false){
+                    num = host.getGame().getCup().calculateSixes();
+                    host.getGame().getActivePlayer().getCard().setSixes(num);
+                    host.getGame().getActivePlayer().getCard().setSixesBool(true);
+                    success = true;
+                }else{
+                    // do nothing
+                }
                 break;
             case 7:
-                num = host.getGame().getCup().calculateThreeKind();
-                host.getGame().getAcitivePlayer().getCard().setThreeKind(num);
-                host.getGame().getAcitivePlayer().getCard().setThreeKindBool(true);
+                if(host.getGame().getActivePlayer().getCard().getThreeKindBool() == false){
+                    num = host.getGame().getCup().calculateThreeKind();
+                    host.getGame().getActivePlayer().getCard().setThreeKind(num);
+                    host.getGame().getActivePlayer().getCard().setThreeKindBool(true);
+                    success = true;
+                }else{
+                    // do nothing
+                }
                 break;
             case 8:
-                num = host.getGame().getCup().calculateFourKind();
-                host.getGame().getAcitivePlayer().getCard().setFourKind(num);
-                host.getGame().getAcitivePlayer().getCard().setFourKindBool(true);
+                if(host.getGame().getActivePlayer().getCard().getFourKindBool() == false){
+                    num = host.getGame().getCup().calculateFourKind();
+                    host.getGame().getActivePlayer().getCard().setFourKind(num);
+                    host.getGame().getActivePlayer().getCard().setFourKindBool(true);
+                    success = true;
+                }else{
+                    // do nothing
+                }
                 break;
             case 9:
-                num = host.getGame().getCup().calculateFullHouse();
-                host.getGame().getAcitivePlayer().getCard().setFullHouse(num);
-                host.getGame().getAcitivePlayer().getCard().setFullHouseBool(true);
+                if(host.getGame().getActivePlayer().getCard().getFullHouseBool() == false){
+                    num = host.getGame().getCup().calculateFullHouse();
+                    host.getGame().getActivePlayer().getCard().setFullHouse(num);
+                    host.getGame().getActivePlayer().getCard().setFullHouseBool(true);
+                    success = true;
+                }else{
+                    // do nothing
+                }
                 break;
             case 10:
-                num = host.getGame().getCup().calculateSmallStraight();
-                host.getGame().getAcitivePlayer().getCard().setSmallStraight(num);
-                host.getGame().getAcitivePlayer().getCard().setSmallStraightBool(true);
+                if(host.getGame().getActivePlayer().getCard().getSmallStraightBool() == false){
+                    num = host.getGame().getCup().calculateSmallStraight();
+                    host.getGame().getActivePlayer().getCard().setSmallStraight(num);
+                    host.getGame().getActivePlayer().getCard().setSmallStraightBool(true);
+                    success = true;
+                }else{
+                    // do nothing
+                }
                 break;
             case 11:
-                num = host.getGame().getCup().calculateLargeStraight();
-                host.getGame().getAcitivePlayer().getCard().setLargeStraight(num);
-                host.getGame().getAcitivePlayer().getCard().setLargeStraightBool(true);
+                if(host.getGame().getActivePlayer().getCard().getLargeStraightBool() == false){
+                    num = host.getGame().getCup().calculateLargeStraight();
+                    host.getGame().getActivePlayer().getCard().setLargeStraight(num);
+                    host.getGame().getActivePlayer().getCard().setLargeStraightBool(true);
+                    success = true;
+                }else{
+                    // do nothing
+                }
                 break;
             case 12:
-                num = host.getGame().getCup().calculateYahtzee();
-                host.getGame().getAcitivePlayer().getCard().setYahtzee(num);
-                host.getGame().getAcitivePlayer().getCard().setYahtzeeBool(true);
+                if(host.getGame().getActivePlayer().getCard().getYahtzeeBool() == false){
+                    num = host.getGame().getCup().calculateYahtzee();
+                    host.getGame().getActivePlayer().getCard().setYahtzee(num);
+                    host.getGame().getActivePlayer().getCard().setYahtzeeBool(true);
+                    success = true;
+                }else{
+                    // do nothing
+                }
                 break;
             case 13:
-                num = host.getGame().getCup().calculateChance();
-                host.getGame().getAcitivePlayer().getCard().setChance(num);
-                host.getGame().getAcitivePlayer().getCard().setChanceBool(true);
+                if(host.getGame().getActivePlayer().getCard().getChanceBool() == false){
+                    num = host.getGame().getCup().calculateChance();
+                    host.getGame().getActivePlayer().getCard().setChance(num);
+                    host.getGame().getActivePlayer().getCard().setChanceBool(true);
+                    success = true;
+                }else{
+                    // do nothing
+                }
                 break;
         }
-        // reset cup
-        host.getGame().getCup().resetCup();
-        // change player
-        host.getGame().switchActivePlayer();
+        if(success == true){
+            // reset cup
+            host.getGame().getCup().resetCup();
+            // change player
+            host.getGame().switchActivePlayer();
+        }
+        
     }
     
 }

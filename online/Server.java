@@ -12,11 +12,11 @@ public class Server {
     private ServerSocket server;
     
     // constructor 
-    public Server(InetAddress address, int port, int numberOfPlayers){
-        this.address = address;
-        this.port = port;
-        this.numberOfPlayers = numberOfPlayers;
-    }
+    // public Server(InetAddress address, int port, int numberOfPlayers){
+    //     this.address = address;
+    //     this.port = port;
+    //     this.numberOfPlayers = numberOfPlayers;
+    // }
     public Server(){
 
     }
