@@ -143,7 +143,7 @@ public class Game {
         combos += "\n\n";
 
         if(!getActivePlayer().getCard().getThreesBool() && !getActivePlayer().getCard().getFoursBool()){
-            combos += "\t3. Threes:    " + getCup().calculateThrees() + "\t\t\t\t4. Fours:    " + getCup().calculateFours();
+            combos += "\t3. Threes:    " + getCup().calculateThrees() + "   \t\t\t4. Fours:    " + getCup().calculateFours();
         }else if(!getActivePlayer().getCard().getThreesBool()){
             combos += "\t3. Threes:    " + getCup().calculateThrees();
         }else if(!getActivePlayer().getCard().getFoursBool()){
