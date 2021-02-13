@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Connection {
     // attributes
-    private String address; // ip address of host
+    private String address; // ip address & port of host
     private int port;
     private Socket socket;
     private DataOutputStream out;
@@ -31,8 +31,6 @@ public class Connection {
     public void connectToServer() {
 
         boolean success = false;
-
-        // Scanner sc1 = new Scanner(System.in);
 
         while (success != true) {
 
