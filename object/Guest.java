@@ -49,23 +49,13 @@ public class Guest extends Player {
         if(this.getName().equals(activePlayerName)){
 
             // check if this player actually has any valid rolls
-            int rolls = Integer.parseInt(this.connection.read());
-
-            if(rolls==0){
-                System.out.print("Sorry you have no more rolls available.\n");
-                this.connection.write("no rolls");
-
-            }else{
-                dicePicks = getDiceFromTerminal();
-                this.connection.write(dicePicks);
-            }
-
+            dicePicks = getDiceFromTerminal();
+            connection.write(dicePicks);
 
         // NOT GUEST TURN
         }else{
-            
             System.out.print("\t\t\t\tWaiting on " + activePlayerName + " to finish.\n");
-            dicePicks = this.connection.read();
+            dicePicks = connection.read();
         }
 
         return dicePicks;
@@ -73,7 +63,7 @@ public class Guest extends Player {
 
     // getters + setters
     public Connection getConnection(){
-        return this.connection;
+        return connection;
     }
     public void setConnection(Connection connection){
         this.connection = connection;

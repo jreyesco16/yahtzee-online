@@ -50,7 +50,9 @@ public class GameMenu extends Menu {
         if(player.getHost()){
             host = (Host)player;
             activePlayer = host.getGame().getActivePlayer().getName();
-            host.printToAllPlayers(activePlayer);
+            if(host.getGame().getOnline()){
+                host.printToAllPlayers(activePlayer);
+            }
         }else{
             guest = (Guest)player;
             activePlayer = guest.getConnection().read();
@@ -122,7 +124,10 @@ public class GameMenu extends Menu {
             }else if(host.getGame().getCup().getRolls() == 0 && selection == 1){
                 verifiedSelection = 0;
             }
-            host.printToAllPlayers(Integer.toString(verifiedSelection));
+            // if online game
+            if(host.getGame().getOnline()){
+                host.printToAllPlayers(Integer.toString(verifiedSelection));
+            }
         }else{
             guest = (Guest)player;
         

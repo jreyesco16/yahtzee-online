@@ -56,7 +56,9 @@ public class ComboMenu extends Menu {
         if(player.getHost()){
             host = (Host)player;
             activePlayer = host.getGame().getActivePlayer().getName();
-            host.printToAllPlayers(activePlayer);
+            if(host.getGame().getOnline()){
+                host.printToAllPlayers(activePlayer);
+            }
         }else{
             guest = (Guest)player;
             activePlayer = guest.getConnection().read();

@@ -202,6 +202,39 @@ public class Game {
         return combos;
     }
 
+
+    public void rerollDice(String dicePicks){
+
+        String [] tokens = dicePicks.split(" ");
+
+        for(int i = 0; i < tokens.length; i++){
+            int num = Integer.parseInt(tokens[i]);
+            if(num == 1){
+                getCup().setDiceOne(getCup().getRandomDiceNumber());
+            }else if(num == 2){
+                getCup().setDiceTwo(getCup().getRandomDiceNumber());
+            }else if(num == 3){
+                getCup().setDiceThree(getCup().getRandomDiceNumber());
+            }else if(num == 4){
+                getCup().setDiceFour(getCup().getRandomDiceNumber());
+            }else if(num == 5){
+                getCup().setDiceFive(getCup().getRandomDiceNumber());
+            }
+        }
+        
+        // decrment rolls
+        getCup().setRolls(getCup().getRolls() - 1);
+
+        // check for yahtzee bonus
+        if(getActivePlayer().getCard().getYahtzeeBool()){
+            if(getCup().getDiceOne() == getCup().getDiceTwo() && getCup().getDiceTwo() == getCup().getDiceThree() && getCup().getDiceThree() == getCup().getDiceFour() && getCup().getDiceFour() == getCup().getDiceFive()){
+                getActivePlayer().getCard().incrementBonusChips();
+            }
+        }
+
+    }
+
+
     // getters + setters
     public ArrayList<Player> getPlayers(){
         return this.players;

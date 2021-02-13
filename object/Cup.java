@@ -391,6 +391,37 @@ public class Cup {
         this.rolls = rolls;
     }
 
+    public int getDiceOne(){
+        return diceOne;
+    }
+    public void setDiceOne(int diceOne){
+        this.diceOne = diceOne;
+    }
+    public int getDiceTwo(){
+        return diceTwo;
+    }
+    public void setDiceTwo(int diceTwo){
+        this.diceTwo = diceTwo;
+    }
+    public int getDiceThree(){
+        return diceThree;
+    }
+    public void setDiceThree(int diceThree){
+        this.diceThree = diceThree;
+    }
+    public int getDiceFour(){
+        return diceFour;
+    }
+    public void setDiceFour(int diceFour){
+        this.diceFour = diceFour;
+    }
+    public int getDiceFive(){
+        return diceFive;
+    }
+    public void setDiceFive(int diceFive){
+        this.diceFive = diceFive;
+    }
+
 
 
 }

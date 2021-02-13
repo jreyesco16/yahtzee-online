@@ -35,7 +35,7 @@ public class Card {
     private boolean yahtzeeBool;
     private int chance;
     private boolean chanceBool;
-    private int yahtzeeBonus;
+    private int bonusChips;
 
     // totals
     private int totalLowerSelection;
@@ -77,7 +77,7 @@ public class Card {
         this.yahtzeeBool = false;
         this.chance = 0;
         this.chanceBool = false;
-        this.yahtzeeBonus = 0;
+        this.bonusChips = 0;
         this.totalLowerSelection = 0;
         this.totalUpperSelection = 0;
         this.grandTotal = 0;
@@ -297,11 +297,13 @@ public class Card {
         this.chanceBool = chanceBool;
     }
     public int getYahzeeBonus(){
-        return this.yahtzeeBonus * 100;
+        return bonusChips * 100;
     }
-
-    public void setYahtzeeBonus(int yahtzeeBonus){
-        this.yahtzeeBonus = yahtzeeBonus;
+    public int getBonusChips(){
+        return bonusChips;
+    }
+    public void incrementBonusChips(){
+        bonusChips++;
     }
     public int getTotalLowerSelection(){
         return this.threeKind + this.fourKind + this.fullHouse + this.smallStraight + this.largeStraight + this.yahtzee + this.chance + getYahzeeBonus();

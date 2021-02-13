@@ -24,7 +24,7 @@ public class RollCommand implements Command {
 
         if(player.getHost()){
             Host host = (Host)player;
-            host.getGame().getCup().rerollDice(dicePicks);
+            host.getGame().rerollDice(dicePicks);
         }
 
         return new GameMenu(player);

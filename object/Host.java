@@ -199,13 +199,11 @@ public class Host extends Player {
             // HOST TURN
             if(this.getName().equals(activePlayerName)){
 
-                   dicePicks = (game.getCup().getRolls() > 0) ? getDiceFromTerminal() : null;
+                   dicePicks = getDiceFromTerminal();
 
             // NOT HOST TURN
             }else{
                Guest guest = (Guest)game.getActivePlayer();
-   
-               guest.getConnection().write(String.valueOf(game.getCup().getRolls()));
 
                System.out.print("\t\t\t\tWaiting on " + activePlayerName + " to finish.\n");
        
@@ -218,11 +216,12 @@ public class Host extends Player {
         // LOCAL
         }else{
 
-            dicePicks = (game.getCup().getRolls() > 0) ? getDiceFromTerminal() : null;
+            dicePicks = getDiceFromTerminal();
         }
 
         return dicePicks;
     }
+
 
     // getters & setters
     public Server getServer(){
