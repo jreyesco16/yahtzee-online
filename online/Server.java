@@ -74,7 +74,7 @@ public class Server {
 
         // keep bugging user until they enter 
         while(!got){
-            System.out.print("Enter the number of players(up to 4): ");
+            System.out.print("\nEnter the number of players (up to 4 including host): ");
             String players = sc.nextLine();
 
             try{
@@ -84,7 +84,7 @@ public class Server {
                     got = true;
                     this.numberOfPlayers = playersNum;
                 }else{
-                    System.out.print("The number ented must be greater than 1 and smaller or equal to 4, try again.\n");
+                    System.out.print("\nThe number entered must be greater than 1 and less than or equal to 4, try again.\n");
                     continue;
                 }
             }catch(Exception e){

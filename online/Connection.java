@@ -32,30 +32,43 @@ public class Connection {
 
         boolean success = false;
 
-        Scanner sc = new Scanner(System.in);
+        // Scanner sc1 = new Scanner(System.in);
 
         while (success != true) {
-            System.out.print("Enter the ip address of server: ");
-            this.address = sc.nextLine();
-            try {
-                System.out.print("Enter the port of the server: ");
-                this.port = sc.nextInt();
+
+            // getting IP
+            Scanner sc1 = new Scanner(System.in);
+            System.out.print("\nEnter the ip address of server: ");
+            this.address = sc1.nextLine();
+
+            boolean portSuccess = false;
+
+            // getting PORT
+            while(portSuccess != true){
 
                 try {
-                    this.socket = new Socket(this.address, this.port);
-                    success = true;
+                    Scanner sc2 = new Scanner(System.in);
+                    System.out.print("Enter the port of the server: ");
+                    this.port = sc2.nextInt();
 
-                    // set up input & output
-                    this.out = new DataOutputStream(this.socket.getOutputStream());
-                    this.in = new DataInputStream(this.socket.getInputStream());
+                    portSuccess = true;
 
-                    System.out.print("Successfully connected to server.\n");
+                    try {
+                        this.socket = new Socket(this.address, this.port);
+                        success = true;
+
+                        // set up input & output
+                        this.out = new DataOutputStream(this.socket.getOutputStream());
+                        this.in = new DataInputStream(this.socket.getInputStream());
+
+                        System.out.print("Successfully connected to server.\n");
+                    } catch (Exception e) {
+                        System.out.print("\nError when connecting to this address.\n");
+                    }
+
                 } catch (Exception e) {
-                    System.out.print("Error when connecting to this address.\n");
+                    System.out.print("\nYou did not enter a port number. Try again\n\n");
                 }
-
-            } catch (Exception e) {
-                System.out.print("You did not enter a port number, must be 4 digit number.\n");
             }
         }
     }

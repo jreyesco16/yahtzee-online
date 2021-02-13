@@ -47,14 +47,13 @@ public class Host extends Player {
                     players.add(new Guest(name, new Card(), new Connection(socket)));
                     count++;
                 }catch(Exception e){
-                    System.out.print("Error when getter name from accepted player.\n");
+                    System.out.print("Error when getting name from accepted player.\n");
                 }
-
             }catch(Exception e){
-                System.out.print("Error when accepting player.\n");
+                System.out.print("\nError when accepting player.\n");
             }
             // inform host that player just joined
-            System.out.print("Player " + name + " has joined.\n");
+            System.out.print("\nPlayer " + name + " has joined.\n\n");
         }
         this.game = new Game(players, new Cup(), true);
     }
