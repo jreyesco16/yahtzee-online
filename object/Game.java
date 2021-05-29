@@ -221,9 +221,13 @@ public class Game {
                 getCup().setDiceFive(getCup().getRandomDiceNumber());
             }
         }
+
+        System.out.print(dicePicks);
         
-        // decrment rolls
-        getCup().setRolls(getCup().getRolls() - 1);
+        // decrment rolls (if user doesn't choose 0)
+        if(!dicePicks.equals("0")){
+            getCup().setRolls(getCup().getRolls() - 1);
+        }
 
         // check for yahtzee bonus
         if(getActivePlayer().getCard().getYahtzeeBool()){
